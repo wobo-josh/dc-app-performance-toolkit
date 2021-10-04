@@ -17,7 +17,7 @@ RUN apt-get install nodejs
 
 
 RUN apt-get -y update \
-  && $APT_INSTALL ca-certificates vim git openssh-server python3.8-dev python3-pip wget \
+  && $APT_INSTALL vim git openssh-server python3.8-dev python3-pip wget \
   && update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1 \
   && python -m pip install --upgrade pip \
   && python -m pip install --upgrade setuptools \
