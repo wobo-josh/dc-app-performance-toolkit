@@ -47,7 +47,7 @@ class TopPanelSelectors:
 class CustomerPortalsSelectors:
     welcome_logged_in_page = (By.CSS_SELECTOR, "div.cv-help-center-container")
     browse_portals_button = (By.CSS_SELECTOR, 'button.cv-smart-portal-browse-portals')
-    full_portals_list = (By.CSS_SELECTOR, 'ul.cv-smart-portal-all-portals-list')
+    full_portals_list = (By.CSS_SELECTOR, 'ul.cv-portal-all-portals')
     portal_from_list = (By.CSS_SELECTOR, '"ul.cv-smart-portal-all-portals-list>li>a>span"')
 
 
