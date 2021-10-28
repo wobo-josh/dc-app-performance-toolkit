@@ -39,7 +39,7 @@ class CustomerPortals(BasePage):
     def browse_projects(self):
         self.wait_until_visible(CustomerPortalsSelectors.browse_portals_button)
         self.get_element(CustomerPortalsSelectors.browse_portals_button).click()
-        self.wait_until_visible(CustomerPortalsSelectors.full_portals_list)
+        #self.wait_until_visible(CustomerPortalsSelectors.full_portals_list)
 
     def open_random_portal(self):
         portals = self.get_elements(CustomerPortalsSelectors.portal_from_list)
@@ -71,6 +71,7 @@ class CustomerPortal(BasePage):
     def create_and_submit_request(self):
         self.get_element(CustomerPortalSelectors.summary_field).\
             send_keys(f'Selenium - {self.generate_random_string(5)}')
+        self.wait_until_visible(CustomerPortalSelectors.description_field)
         self.get_element(CustomerPortalSelectors.description_field).\
             send_keys(f'Selenium - Description {self.generate_random_string(5)}')
 
@@ -107,6 +108,8 @@ class CustomerRequest(BasePage):
     def comment_request(self):
         self.wait_until_visible(RequestSelectors.comment_request_field)
         self.get_element(RequestSelectors.comment_request_field).click()
+        self.wait_until_visible(RequestSelectors.comment_field_click)
+        self.get_element(RequestSelectors.comment_field_click).click()
         self.get_element(RequestSelectors.comment_request_field).\
             send_keys(f'Selenium comment - {self.generate_random_string(10)}')
         self.wait_until_clickable(RequestSelectors.add_comment_button)

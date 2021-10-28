@@ -47,8 +47,8 @@ class TopPanelSelectors:
 class CustomerPortalsSelectors:
     welcome_logged_in_page = (By.CSS_SELECTOR, "div.cv-help-center-container")
     browse_portals_button = (By.CSS_SELECTOR, 'button.cv-smart-portal-browse-portals')
-    full_portals_list = (By.CSS_SELECTOR, 'ul.cv-portal-all-portals')
-    portal_from_list = (By.CSS_SELECTOR, '"ul.cv-smart-portal-all-portals-list>li>a>span"')
+    #full_portals_list = (By.CSS_SELECTOR, 'ul.cv-smart-portal-all-portals-list')
+    portal_from_list = (By.CSS_SELECTOR, '"portal-card-item"')
 
 
 class CustomerPortalSelectors:
@@ -56,7 +56,7 @@ class CustomerPortalSelectors:
     request_type = (By.CSS_SELECTOR, 'li>span.js-cv-request-type>a')
     create_request_button = (By.XPATH, "//button[contains(text(),'Create')]")
     summary_field = (By.ID, 'summary')
-    description_field = (By.ID, 'description')
+    description_field = (By.CSS_SELECTOR, '.XttFO')
 
     required_dropdown_field = (By.CSS_SELECTOR, "#s2id_components>ul.select2-choices")
     required_dropdown_list = (By.ID, 'select2-drop')
@@ -72,6 +72,7 @@ class RequestSelectors:
     request_url = UrlManager().request_url()
     request_option = (By.CLASS_NAME, 'cv-request-options')
     comment_request_field = (By.CSS_SELECTOR, 'textarea#comment-on-request')
+    comment_field_click = (By.CSS_SELECTOR, '.XttFO')
     add_comment_button = (By.XPATH, "//button[contains(text(),'Add')]")
     share_request_button = (By.CSS_SELECTOR, 'a.js-share-request')
     share_request_search_field = (By.ID, 's2id_participants')
