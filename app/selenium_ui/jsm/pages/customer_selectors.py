@@ -56,7 +56,7 @@ class CustomerPortalSelectors:
     request_type = (By.CSS_SELECTOR, 'li>span.js-cv-request-type>a')
     create_request_button = (By.XPATH, "//button[contains(text(),'Create')]")
     summary_field = (By.ID, 'summary')
-    description_field = (By.CSS_SELECTOR, '.XttFO')
+    description_field = (By.CSS_SELECTOR, '.ProseMirror')
 
     required_dropdown_field = (By.CSS_SELECTOR, "#s2id_components>ul.select2-choices")
     required_dropdown_list = (By.ID, 'select2-drop')
@@ -72,7 +72,7 @@ class RequestSelectors:
     request_url = UrlManager().request_url()
     request_option = (By.CLASS_NAME, 'cv-request-options')
     comment_request_field = (By.CSS_SELECTOR, 'textarea#comment-on-request')
-    comment_field_click = (By.CSS_SELECTOR, '.XttFO')
+    comment_field_click = (By.CSS_SELECTOR, '.ProseMirror')
     add_comment_button = (By.XPATH, "//button[contains(text(),'Add')]")
     share_request_button = (By.CSS_SELECTOR, 'a.js-share-request')
     share_request_search_field = (By.ID, 's2id_participants')

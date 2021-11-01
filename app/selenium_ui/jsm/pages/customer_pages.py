@@ -109,12 +109,11 @@ class CustomerRequest(BasePage):
         self.wait_until_visible(RequestSelectors.comment_request_field)
         self.get_element(RequestSelectors.comment_request_field).click()
         self.wait_until_visible(RequestSelectors.comment_field_click)
-        self.get_element(RequestSelectors.comment_field_click).click()
-        self.get_element(RequestSelectors.comment_request_field).\
+        self.get_element(RequestSelectors.comment_field_click).\
             send_keys(f'Selenium comment - {self.generate_random_string(10)}')
         self.wait_until_clickable(RequestSelectors.add_comment_button)
         self.get_element(RequestSelectors.add_comment_button).click()
-        self.wait_until_invisible(RequestSelectors.add_comment_button)
+        self.wait_until_invisible(RequestSelectors.comment_request_field)
 
     def search_for_customer_to_share_with(self, customer_name):
         if not self.element_exists(RequestSelectors.share_request_button):
