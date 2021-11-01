@@ -54,8 +54,8 @@ def test_1_selenium_agent_view_queues_medium(jsm_webdriver, jsm_datasets, jsm_sc
     modules_agents.view_queues_medium(jsm_webdriver, jsm_datasets)
 
 
-def test_1_selenium_agent_view_queues_small(jsm_webdriver, jsm_datasets, jsm_screen_shots):
-    modules_agents.view_queues_small(jsm_webdriver, jsm_datasets)
+#def test_1_selenium_agent_view_queues_small(jsm_webdriver, jsm_datasets, jsm_screen_shots):
+#    modules_agents.view_queues_small(jsm_webdriver, jsm_datasets)
 
 
 """
