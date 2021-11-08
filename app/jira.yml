@@ -4,7 +4,7 @@ settings:
   aggregator: consolidator
   verbose: false
   env:
-    application_hostname: test_jira_instance.atlassian.com    # Jira DC hostname without protocol and port e.g. test-jira.atlassian.com or localhost
+    application_hostname: jira-LoadB-1FIMMXUFOIQT2-605514597.us-east-2.elb.amazonaws.com    # Jira DC hostname without protocol and port e.g. test-jira.atlassian.com or localhost # jira-LoadB-1SOU0D1F23DHJ-1531123616.us-east-2.elb.amazonaws.com
     application_protocol: http      # http or https
     application_port: 80            # 80, 443, 8080, 2990, etc
     secure: True                    # Set False to allow insecure connections, e.g. when using self-signed SSL certificate
@@ -12,14 +12,14 @@ settings:
     admin_login: admin
     admin_password: admin
     load_executor: jmeter           # jmeter and locust are supported. jmeter by default.
-    concurrency: 200                # number of concurrent virtual users for jmeter or locust scenario
-    test_duration: 45m
-    ramp-up: 3m                     # time to spin all concurrent users
-    total_actions_per_hour: 54500   # number of total JMeter/Locust actions per hour
+    concurrency: 2               # number of concurrent virtual users for jmeter or locust scenario !!!!!
+    test_duration: 30m            # !!!!!!!!!!
+    ramp-up: 3s                     # time to spin all concurrent users   !!!!!!!!
+    total_actions_per_hour: 54500 #  108000  # number of total JMeter/Locust actions per hour
     WEBDRIVER_VISIBLE: False
     JMETER_VERSION: 5.2.1
     LANGUAGE: en_US.utf8
-    allow_analytics: Yes            # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
+    allow_analytics: No # Yes            # Allow sending basic run analytics to Atlassian. These analytics help us to understand how the tool is being used and help us to continue to invest in this tooling. For more details please see our README.
     # Action percentage for Jmeter and Locust load executors
     create_issue: 4
     search_jql: 11
@@ -34,6 +34,8 @@ settings:
     view_backlog: 6
     browse_boards: 1
     standalone_extension: 0 # By default disabled
+    jmeter_result_filepath: https://server-gdn-bamboo-artefacts.s3.dualstack.us-east-1.amazonaws.com/server-gdn-bamboo/plan-4089545044/JOB81310/build-00061/dcapt-run-results/dc-app-performance-toolkit/app/results/jira/2021-09-20_05-02-09/kpi.jtl?response-content-disposition=attachment%3B%20filename%3D%22kpi.jtl%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20211102T124704Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARGD27CHCZK7PAKZ5%2F20211102%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=751e24c82afe859e1557b77a45d9d3d85d69458fb29ab8ffce374fa610e15167
+    selenium_result_filepath: https://server-gdn-bamboo-artefacts.s3.dualstack.us-east-1.amazonaws.com/server-gdn-bamboo/plan-4089545044/JOB81310/build-00061/dcapt-run-results/dc-app-performance-toolkit/app/results/jira/2021-09-20_05-02-09/kpi.jtl?response-content-disposition=attachment%3B%20filename%3D%22kpi.jtl%22&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20211102T124704Z&X-Amz-SignedHeaders=host&X-Amz-Expires=900&X-Amz-Credential=AKIARGD27CHCZK7PAKZ5%2F20211102%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=751e24c82afe859e1557b77a45d9d3d85d69458fb29ab8ffce374fa610e15167
     # Custom dataset section.
     custom_dataset_query:          # Write JQL query to add JQL output to the app/datasets/jira/custom-issues.csv, e.g. "summary ~ 'AppIssue*'"
 services:
@@ -47,6 +49,10 @@ services:
       - python util/jtl_convertor/jtls-to-csv.py kpi.jtl selenium.jtl
     post-process:
       - python util/analytics/analytics.py jira
+      - curl ${jmeter_base_result_filepath} > kpi_base.jtl
+      - curl ${selenium_base_result_filepath} > selenium_base.jtl
+      - python util/analytics/post_analytics.py kpi_base.jtl kpi.jtl
+      - python util/analytics/post_analytics.py selenium_base.jtl selenium.jtl
       - python util/post_run/cleanup_results_dir.py
 execution:
   - scenario: ${load_executor}

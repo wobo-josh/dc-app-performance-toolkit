@@ -116,11 +116,12 @@ def __validate_file_names(file_names: List[str]):
 
 
 def convert_to_csv(input_jtl: Path, output_csv: Path, default_test_actions: list):
-    reader = csv.DictReader(input_jtl.open(mode='r'))
+    with input_jtl.open(mode='r') as f:
+        reader = csv.DictReader(f)
 
     jtl_list = [row for row in reader]
+    # TODO(galyna): If list is too big, read iteratively from CSV if possible
     csv_list = []
-
     for jtl_sample in jtl_list:
         sample = {}
         if jtl_sample[LABEL_JTL] not in [processed_sample[LABEL] for processed_sample in csv_list]:
@@ -173,9 +174,11 @@ def main():
         for file_name in file_names:
             jtl_file_path = ENV_TAURUS_ARTIFACT_DIR / file_name
             jtl_validator.validate(jtl_file_path)
+
             csv_file_path = Path(tmp_dir) / __change_file_extension(file_name, '.csv')
             default_test_actions = __get_all_default_actions()
             __convert_jtl_to_csv(jtl_file_path, csv_file_path, default_test_actions)
+
             temp_csv_list.append(csv_file_path)
 
         results_file_path = ENV_TAURUS_ARTIFACT_DIR / RESULTS_CSV_NAME
